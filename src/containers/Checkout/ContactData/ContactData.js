@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import axios from "../../../axios-orders";
 import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.css';
+import axios from "../../../axios-orders";
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
@@ -92,7 +92,6 @@ class ContactData extends Component {
       },
     },
     formIsValid: false,
-    totalPrice:''
   }
 
   inputChandedHandler = (event, inputIdentifier) => {
@@ -136,6 +135,15 @@ class ContactData extends Component {
       isValid = value.length >= rules.minLength && isValid;
     }
 
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid
+    }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid
+    }
 
     return isValid;
   }
@@ -143,10 +151,9 @@ class ContactData extends Component {
   orderHandler = (event) => {
     event.preventDefault()
     const { price } = this.props;
-    this.setState({ loading: true });
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
-      formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+      formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
     }
     const order = {
       ingredients: this.props.ings,

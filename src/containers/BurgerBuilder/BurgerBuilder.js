@@ -73,14 +73,11 @@ class BurgerBuilder extends Component {
           />
         </Aux>
       );
-      orderSummary = (
-        <OrderSummary
+      orderSummary = <OrderSummary
           ingredients={this.props.ings}
           price={this.props.price}
           purchaseCancelled={this.purchaseCancelHandler}
-          purchaseContinued={this.purchaseContinueHandler}
-        />
-      );
+          purchaseContinued={this.purchaseContinueHandler} />
     }
 
     return (
@@ -102,7 +99,6 @@ const mapStateToProps = state => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
-    purchased: state.order.purchased
   }
 }
 

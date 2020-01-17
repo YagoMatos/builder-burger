@@ -19,7 +19,7 @@ class Orders extends Component{
         <Order 
           key={order.id} 
           ingredients={order.ingredients}
-          price={+order.price}
+          price={order.price}
       />  )
     }
     return(
@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: () => dispatch(actions.fecthOrders())
+    onFetchOrders: () => dispatch(actions.fetchOrders())
   }
 }
 
