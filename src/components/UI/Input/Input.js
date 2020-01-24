@@ -4,7 +4,7 @@ import classes from './Input.css';
 
 const input = (props) => {
   let inputElement = null;
-  const inputClasses = [];
+  const inputClasses = [classes.InputElement];
 
   if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(classes.Invalid)
@@ -28,8 +28,8 @@ const input = (props) => {
     case ('select'):
         inputElement = (
           <select  
-            className={classes.InputElement} 
-            onChange={props.changed}
+          className={inputClasses.join(' ')}
+          onChange={props.changed}
             value={props.value}>
               {props.elementConfig.options.map(option => (
                 <option key={option.value} value={option.value}>
@@ -41,8 +41,8 @@ const input = (props) => {
         break;
     default:
       inputElement = <input 
-        className={classes.InputElement} 
-        {...props.elementConfig} 
+      className={inputClasses.join(' ')}
+      {...props.elementConfig} 
         value={props.value} />
       break;
   }
